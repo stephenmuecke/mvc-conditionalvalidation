@@ -47,9 +47,7 @@ $.validator.unobtrusive.adapters.add("requiredif", ["dependentproperty", "target
     var element = options.element;
     var dependentproperty = options.params.dependentproperty;
     var dependentElement = sandtrapValidation.getDependentElement(element, dependentproperty);
-    //dependentproperty = sandtrapValidation.getDependantProperyID(element, dependentproperty);
     options.rules['requiredif'] = {
-        //dependentproperty: dependentproperty,
         dependentelement: dependentElement,
         targetvalue: options.params.targetvalue
     };
