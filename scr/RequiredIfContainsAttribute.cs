@@ -28,10 +28,10 @@ namespace Sandtrap.Web.Validation
         /// Initializes a new RequiredIfContainsAttribute.
         /// </summary>
         /// <param name="dependentProperty">
-        /// 
+        /// The name of the dependent property.
         /// </param>
         /// <param name="targetValues">
-        /// 
+        /// A comma separated string of values.
         /// </param>
         public RequiredIfContainsAttribute(string dependentProperty, string targetValues)
         {
