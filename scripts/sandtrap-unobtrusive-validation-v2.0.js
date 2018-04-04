@@ -86,3 +86,45 @@ $.validator.unobtrusive.adapters.add("requiredifcontains", ["dependentproperty",
     };
     options.messages['requiredifcontains'] = options.message;
 });
+
+// FileSizeAttribute
+
+$.validator.unobtrusive.adapters.add('filesize', ['maxsize'], function (options) {
+    options.rules['filesize'] = { maxsize: options.params.maxsize };
+    options.messages['filesize'] = options.message;
+});
+
+// FileTypeAttribute
+
+$.validator.unobtrusive.adapters.add('filetype', ['validtypes'], function (options) {
+    options.rules['filetype'] = { validtypes: options.params.validtypes.split(',') };
+    options.messages['filetype'] = options.message;
+});
+
+$.validator.addMethod("filetype", function (value, element, param) {
+    for (var i = 0; i < element.files.length; i++) {
+        var extension = getFileExtension(element.files[0].name);
+        if ($.inArray(extension, param.validtypes) === -1) {
+            return false;
+        }
+    }
+    return true;
+});
+
+function getFileExtension(fileName) {
+    if (/[.]/.exec(fileName)) {
+        return /[^.]+$/.exec(fileName)[0].toLowerCase();
+    }
+    return null;
+}
+
+$.validator.addMethod('filesize', function (value, element, param) {
+    var maxSize = parseInt(param.maxsize);
+    for (var i = 0; i < element.files.length; i++) {
+        var filesize = parseInt(element.files[i].size);
+        if (filesize > maxSize) {
+            return false;
+        }
+    }
+    return true;
+});
